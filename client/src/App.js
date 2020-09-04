@@ -8,9 +8,9 @@ function App() {
   return (
     <div className="App">
       <Switch>
+        <Route exact path="/" render={() => <HomePage />} />
         <Route exact path="/login" render={() => <Login />} />
       </Switch>
-      <HomePage />
     </div>
   )
 }
