@@ -5,14 +5,13 @@
   "main": "index.js",
   "scripts": {
     "client-install": "npm install --prefix client",
-    "client-build": "npm run build --prefix client",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js",
     "server:dev": "env-cmd -f ./config/dev.env nodemon src/index.js",
     "server:prod": "env-cmd -f ./config/prod.env nodemon src/index.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server:dev\" \"npm run client\"",
-    "heroku-postbuild": "NPM _CONFIG_PRODUCTION=false npm run client-install && npm run client-build"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
   "author": "",
