@@ -4,10 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "client-install": "npm install --prefix client",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js",
-    "start:dev": "env-cmd -f ./config/dev.env nodemon src/index.js",
-    "start:prod": "env-cmd -f ./config/prod.env nodemon src/index.js"
+    "server:dev": "env-cmd -f ./config/dev.env nodemon src/index.js",
+    "server:prod": "env-cmd -f ./config/prod.env nodemon src/index.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server:dev\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
@@ -17,6 +20,7 @@
     "nodemon": "^2.0.4"
   },
   "dependencies": {
+    "concurrently": "^5.3.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mariadb": "^2.4.2",
