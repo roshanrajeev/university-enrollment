@@ -14,7 +14,9 @@ class TableData extends Component {
     } else if (e.target.className === "edit") {
       this.props.handleEdit(e.target.id)
     } else if (e.target.className === "delete") {
-      this.props.handleDelete(e.target.id)
+      if (window.confirm("Are You Sure?")) {
+        this.props.handleDelete(e.target.id)
+      }
     }
   }
 
