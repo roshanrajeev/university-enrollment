@@ -40,7 +40,7 @@ class Header extends Component {
       <nav>
         <div className="nav-container">
           <h1>
-            <Link to="/">DZ App</Link>
+            <Link to="/">Edu Live</Link>
           </h1>
           <ul>{list}</ul>
         </div>

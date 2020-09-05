@@ -18,7 +18,7 @@ class Dashboard extends Component {
       isViewing: true,
       isEditing: "",
       pageNo: 0,
-      MaxPages: 0,
+      maxPages: 0,
     }
     this.handleClick = this.handleClick.bind(this)
     this.getUniversityData = this.getUniversityData.bind(this)
@@ -115,7 +115,6 @@ class Dashboard extends Component {
   }
 
   async handleSubmit(data) {
-    console.log(data)
     const token = localStorage.getItem("token")
     const res = await fetch("/api/universities", {
       method: "POST",
@@ -174,6 +173,16 @@ class Dashboard extends Component {
     })
     if (res.status === 200) {
       await this.getMaxPages()
+      console.log(this.state.maxPages, this.state.pageNo)
+      if (this.state.maxPages < this.state.pageNo) {
+        this.setState(st => {
+          return {
+            ...st,
+            pageNo: st.maxPages,
+          }
+        })
+      }
+      console.log(this.state.maxPages, this.state.pageNo)
       await this.getUniversityData()
     }
   }
