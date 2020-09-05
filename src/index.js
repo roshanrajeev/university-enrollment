@@ -1,11 +1,15 @@
 const express = require("express")
 const path = require("path")
+const cors = require("cors")
 
 const userRouter = require("./routes/users")
 
 const port = process.env.PORT
 
 const app = express()
+
+// Setup cors config
+app.use(cors())
 
 // Middlewares
 app.use(express.json())
