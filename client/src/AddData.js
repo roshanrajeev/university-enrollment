@@ -81,7 +81,7 @@ class AddData extends Component {
             <input
               type="text"
               onChange={this.handleChange}
-              placeholder="Image Url"
+              placeholder="https://example.com/university.jpg"
               id="imgurl"
               name="imgurl"
             />
@@ -100,9 +100,9 @@ class AddData extends Component {
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
-              type="text"
+              type="email"
               onChange={this.handleChange}
-              placeholder="Email"
+              placeholder="joe@example.com"
               id="email"
               name="email"
               required
@@ -114,7 +114,7 @@ class AddData extends Component {
             <input
               type="text"
               onChange={this.handleChange}
-              placeholder="Web Url"
+              placeholder="http://example.com"
               id="weburl"
               name="weburl"
             />
