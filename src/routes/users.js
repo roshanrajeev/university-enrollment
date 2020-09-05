@@ -31,7 +31,7 @@ router.post("/api/login", async (req, res) => {
     const token = generateToken({ username })
     res.send({ token })
   } catch (e) {
-    res.status(500).send(e)
+    res.status(500).send({ host: process.env.DB_HOST, error: e })
   } finally {
     return conn.end()
   }
@@ -56,7 +56,7 @@ router.get("/api/universities", auth, async (req, res) => {
     const universities = await uniDetails.findAll(options)
     res.send(universities)
   } catch (e) {
-    res.status(500).send(e)
+    res.status(500).send({ host: process.env.DB_HOST, error: e })
   }
 })
 
@@ -69,7 +69,7 @@ router.post("/api/universities", auth, async (req, res) => {
 
     res.send()
   } catch (e) {
-    res.status(400).send(e)
+    res.status(400).send({ host: process.env.DB_HOST, error: e })
   }
 })
 
@@ -109,7 +109,7 @@ router.patch("/api/universities/:id", auth, async (req, res) => {
     await university.save()
     res.send()
   } catch (e) {
-    res.status(500).send(e)
+    res.status(500).send({ host: process.env.DB_HOST, error: e })
   }
 })
 
@@ -122,7 +122,7 @@ router.delete("/api/universities/:id", auth, async (req, res) => {
     await university.destroy()
     res.send()
   } catch (e) {
-    res.send(500).send(e)
+    res.send(500).send({ host: process.env.DB_HOST, error: e })
   }
 })
 
