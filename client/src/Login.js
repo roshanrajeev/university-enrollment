@@ -1,6 +1,5 @@
 import React, { Component } from "react"
-import history from "./utils/history"
-import { Link } from "react-router-dom"
+import { Link, withRouter } from "react-router-dom"
 
 import { UserContext } from "./contexts/UserContext"
 import "./Login.scss"
@@ -41,7 +40,7 @@ class Login extends Component {
 
     // Redirect to dashboard
     this.context.setUser(this.state.user_id)
-    history.push("/dashboard")
+    this.props.history.push("/dashboard")
   }
 
   async validateLogin() {
@@ -123,4 +122,4 @@ class Login extends Component {
   }
 }
 
-export default Login
+export default withRouter(Login)

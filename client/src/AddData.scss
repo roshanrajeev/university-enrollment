@@ -1,0 +1,48 @@
+.AddData {
+  width: 750px;
+  max-width: 100%;
+  margin: 2rem auto;
+  transform: translateY(-1rem);
+
+  h2 {
+    text-align: center;
+  }
+}
+.AddData-form {
+  display: flex;
+  flex-flow: column nowrap;
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      margin-bottom: 0.4rem;
+      font-size: 14px;
+      font-weight: 600;
+      margin-left: 1rem;
+    }
+
+    input {
+      background-color: #eee;
+      padding: 0.8rem 1rem;
+      border: 1px solid transparent;
+      border-radius: 26px;
+      outline: none;
+      margin-bottom: 1rem;
+    }
+  }
+
+  button {
+    background-color: white;
+    width: 100px;
+  }
+
+  .form-row {
+    display: flex;
+
+    .form-group {
+      width: 50%;
+    }
+  }
+}

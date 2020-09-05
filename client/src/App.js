@@ -1,8 +1,8 @@
 import React, { Suspense, lazy, Component } from "react"
-import { Router, Switch, Route } from "react-router-dom"
+import { Router, Switch, Route, withRouter } from "react-router-dom"
 
 // Utils and stylesheets
-import history from "./utils/history"
+import { decodeBase64 } from "./utils/base64"
 import "./App.css"
 
 // Import contexts
@@ -22,8 +22,23 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      user: "",
+      user: this.setInitialUser(),
       setUser: this.setUser,
+    }
+  }
+
+  componentDidMount() {
+    const user = this.setInitialUser()
+    this.setState({ user })
+  }
+
+  setInitialUser() {
+    if (localStorage.getItem("token")) {
+      const token = localStorage.getItem("token").split(".")[1]
+      const res = JSON.parse(decodeBase64(token))
+      return res.username
+    } else {
+      return ""
     }
   }
 
@@ -38,7 +53,6 @@ class App extends Component {
         <div className="App">
           <Suspense fallback={<Loading />}>
             <Header />
-            {/* <Router history={history}> */}
             <Switch>
               <Route exact path="/" render={() => <HomePage />} />
               <Route exact path="/login" render={() => <Login />} />
@@ -46,15 +60,22 @@ class App extends Component {
                 exact
                 path="/dashboard"
                 render={() => {
-                  if (!this.state.user) {
-                    history.push("/login")
+                  if (!localStorage.getItem("token")) {
+                    this.props.history.push("/login")
                   }
                   return <Dashboard />
                 }}
               />
+              <Route
+                exact
+                path="/logout"
+                render={() => {
+                  localStorage.removeItem("token")
+                  this.props.history.push("/")
+                }}
+              />
               <Route render={() => <NotFoundPage />} />
             </Switch>
-            {/* </Router> */}
           </Suspense>
         </div>
       </UserContext.Provider>
@@ -62,4 +83,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default withRouter(App)
