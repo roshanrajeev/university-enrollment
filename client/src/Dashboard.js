@@ -25,6 +25,7 @@ class Dashboard extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleEdit = this.handleEdit.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
+    this.handlePatchData = this.handlePatchData.bind(this)
   }
 
   async componentDidMount() {
@@ -142,6 +143,27 @@ class Dashboard extends Component {
     })
   }
 
+  async handlePatchData(id, data) {
+    const token = localStorage.getItem("token")
+    const res = await fetch(`/api/universities/${id}`, {
+      method: "PATCH",
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+    if (res.status === 200) {
+      this.setState({
+        isEditing: "",
+        isViewing: true,
+        isAdding: false,
+      })
+      await this.getMaxPages()
+      await this.getUniversityData()
+    }
+  }
+
   async handleDelete(id) {
     const token = localStorage.getItem("token")
     const res = await fetch(`/api/universities/${id}`, {
@@ -157,7 +179,11 @@ class Dashboard extends Component {
   }
 
   render() {
-    let view = ""
+    let view = (
+      <div className="no-enrollment">
+        <h3>No Universities Enrolled Yet!</h3>
+      </div>
+    )
     if (this.state.isViewing && this.state.data.length !== 0) {
       view = (
         <TableData
@@ -170,7 +196,12 @@ class Dashboard extends Component {
     } else if (this.state.isAdding) {
       view = <AddData handleSubmit={this.handleSubmit} />
     } else if (this.state.isEditing) {
-      view = <EditData data={this.state.data.find(d => d.uid === this.state.isEditing)} />
+      view = (
+        <EditData
+          data={this.state.data.find(d => d.uid === parseInt(this.state.isEditing))}
+          handlePatchData={this.handlePatchData}
+        />
+      )
     }
     return (
       <div className="Dashboard">

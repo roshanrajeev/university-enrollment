@@ -17,4 +17,11 @@
       margin: 0 1rem;
     }
   }
+
+  .no-enrollment {
+    transform: translateY(200px);
+    h3 {
+      text-align: center;
+    }
+  }
 }
